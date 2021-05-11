@@ -9,4 +9,5 @@ node::~node(){
 	if(right){
 		delete right;
 	}
+	
 }
