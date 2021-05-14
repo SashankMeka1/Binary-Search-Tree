@@ -46,13 +46,15 @@ void tree::in_succ(node * in_node){
 			while(in_node->left->left){
 				in_node = in_node->left;
 			}
-			delete in_node->left;
+			
 			itr->value = in_node->left->value;
+			delete in_node->left;
 			in_node->left = nullptr;
 		}
 		else{
+			
+			itr->value = in_node->right->value;
 			delete in_node->right;
-			itr->value = in_node->value;
 			in_node->right = nullptr;
 		}
 	}
