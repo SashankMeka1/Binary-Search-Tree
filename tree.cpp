@@ -154,18 +154,20 @@ void tree::del(int value){
 		}
 	}	
 }
-void tree::print_util(node * in_root){
-	if(in_root and in_root->left){
-		print_util(in_root->left);
+void tree::print_util(node * in_root, int space){
+	if(!in_root){
+		return;	
 	}
-	if(in_root){
-		cout << in_root->value<<" ";
+	space+=10;
+	print_util(in_root->left, space);
+	cout <<endl;
+	for(int i = 10; i < space;i++){
+		cout <<" ";
 	}
-	if(in_root and in_root->right){
-		print_util(in_root->right);
-	}
+	cout<<in_root->value<<endl;
+	print_util(in_root->right,space);
 }
 void tree::print(){
-	print_util(root);
+	print_util(root,0);
 	cout << endl;
 }
