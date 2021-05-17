@@ -38,24 +38,44 @@ void tree::insert(node * in_node){
 		}
 	}
 }
+void tree::search(int value){
+	itr = root;
+	while(itr and itr->value != value){
+		if(value>itr->value){
+			itr = itr->right;
+		}
+		else if(value < itr->value){
+			itr = itr->left;
+		}
+	}
+	if(itr){
+		cout << itr->value<<endl;
+	}
+	else{
+		cout << "Does not exist"<<endl;
+	}
+}
 void tree::in_succ(node * in_node){
 	itr = in_node;
 	if(in_node->right){
 		if(in_node->right->left){
-			in_node = in_node->right;
-			while(in_node->left->left){
-				in_node = in_node->left;
+				in_node = in_node->right;
+				while(in_node->left->left){
+					in_node = in_node->left;
+				}
+				itr->value = in_node->left->value;
+				to_delete = in_node->left;
+				in_node->left = to_delete->right;
+				to_delete->right = nullptr;
+				delete to_delete;
 			}
-			
-			itr->value = in_node->left->value;
-			delete in_node->left;
-			in_node->left = nullptr;
-		}
+		
 		else{
-			
-			itr->value = in_node->right->value;
-			delete in_node->right;
-			in_node->right = nullptr;
+			in_node->value = in_node->right->value;
+			to_delete = in_node->right;
+			in_node->right = in_node->right->right;
+			to_delete->right = nullptr;
+			delete to_delete;
 		}
 	}
 }
@@ -139,7 +159,7 @@ void tree::print_util(node * in_root){
 		print_util(in_root->left);
 	}
 	if(in_root){
-		cout << in_root->value;
+		cout << in_root->value<<" ";
 	}
 	if(in_root and in_root->right){
 		print_util(in_root->right);
@@ -147,4 +167,5 @@ void tree::print_util(node * in_root){
 }
 void tree::print(){
 	print_util(root);
+	cout << endl;
 }
