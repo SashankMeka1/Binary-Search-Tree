@@ -13,29 +13,29 @@ tree::~tree(){
 void tree::insert(node * in_node){
 	if(root){
 		itr = root;
+		while(itr){
+			if(in_node->value > itr->value){
+				if(itr->right){
+					itr = itr->right;
+				}
+				else{
+					itr->right = in_node;
+					return;
+				}
+			}
+			else{
+				if(itr->left){
+					itr = itr->left;
+				}
+				else{
+					itr->left = in_node;
+					return;
+				}
+			}
+		}
 	}
 	else{
 		root = in_node;
-	}
-	while(itr){
-		if(in_node->value > itr->value){
-			if(itr->right){
-				itr = itr->right;
-			}
-			else{
-				itr->right = in_node;
-				return;
-			}
-		}
-		else{
-			if(itr->left){
-				itr = itr->left;
-			}
-			else{
-				itr->left = in_node;
-				return;
-			}
-		}
 	}
 }
 void tree::search(int value){
